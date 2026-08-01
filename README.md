@@ -89,7 +89,7 @@ their own features.
 
 ## Part 2 — How we work together (git workflow)
 
-We're 5 people committing to the same repo. To avoid overwriting each other's work:
+We're 4 people committing to the same repo. To avoid overwriting each other's work:
 
 1. **Never push directly to `main`.** `main` should always be a working version of the app.
 2. **One branch per feature**, branched off the latest `main`:
