@@ -43,8 +43,9 @@ the API mount) — see "Files likely to cause merge conflicts" below.
 
 ## Part 1 — Setup (do this once)
 
-### 1. Set up MongoDB Atlas (one time, free)  
->I already did this. You all dont have to do this again. I've shared the connection string.
+### 1. Set up MongoDB Atlas (one time, free)
+
+> I already did this. You all don't have to do this again. I've shared the connection string.
 
 1. Go to https://www.mongodb.com/atlas and create a free account.
 2. Create a free (M0) cluster.
@@ -57,9 +58,8 @@ the API mount) — see "Files likely to cause merge conflicts" below.
 6. Replace `<username>` and `<password>` with your database user's credentials, and add a database name at the end, e.g. `/tracker`.
 
 > Only one person needs to create the cluster. Whoever does should share the connection string with
-> the team privately (group chat, not GitHub) — **never commit it to git or paste it in an issue/PR**.
-> Everyone points their own local `.env` at the same connection string, so everyone reads/writes the
-> same shared database.
+> the team. **Never commit it to git or paste it in an issue/PR**. Everyone points their own local
+> `.env` at the same connection string, so everyone reads/writes the same shared database.
 
 ### 2. Configure the server
 
