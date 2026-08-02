@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -31,6 +31,13 @@ function Dashboard() {
           manage courses, track research progress, and stay on top of deadlines. This dashboard
           is the shared starting point for the project.
         </p>
+
+        {/* Thesis Supervisors feature - code lives in server/features/thesis-supervisors and client/src/features/thesis-supervisors */}
+        <div className="feature-card">
+          <h3>Thesis Supervisor Finder</h3>
+          <p>Browse BRAC University CSE faculty who supervise thesis or Open research projects.</p>
+          <Link to="/faculty" className="feature-link">Browse Supervisors →</Link>
+        </div>
 
         {/* My beloved teammembers please add your own feature below this */}
         <div className="placeholder-box">

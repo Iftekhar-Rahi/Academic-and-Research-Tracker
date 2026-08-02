@@ -1,15 +1,24 @@
 # Academic and Research Tracker (MERN Stack)
-## Part 1 — Setup (do this once)
-## Part 2 — How we work together (git workflow)
-
 
 A tool for BRAC University students to manage courses, track research progress, and stay on top of
-deadlines. Built with MongoDB, Express, React, and Node.js. This repo currently has login/register
-and a protected dashboard — the shared starting point the rest of the team's features build on.
+deadlines. Built with MongoDB, Express, React, and Node.js. This repo currently has login/register,
+a protected dashboard, and a Thesis Supervisors feature — the shared starting point the rest of the
+team's features build on.
 
 Team of 5, all collaborators on this GitHub repo. Read this file before you start adding your
 feature — it covers both **how to set the project up** and **how we work together** so we don't
 step on each other's code.
+
+## Features built so far
+
+- **Auth + Dashboard** — register/login (JWT) and a protected dashboard page. Lives in the usual
+  `server/models`, `server/routes`, `server/middleware`, and `client/src/pages`.
+- **Thesis Supervisors** — scrapes BRAC CSE's thesis-supervisor directory and lets logged-in users
+  browse/search faculty by research interest, on the `/faculty` page. Lives in its own folder on
+  each side ([server/features/thesis-supervisors](server/features/thesis-supervisors),
+  [client/src/features/thesis-supervisors](client/src/features/thesis-supervisors)) so it's easy to
+  see everything that belongs to it, or copy it into another project — see the `SETUP.md` in each
+  folder. Needs a one-time data load, see step 5 below.
 
 ## Project structure
 
@@ -17,6 +26,18 @@ step on each other's code.
 client/   React app (Vite) - the frontend
 server/   Express API - handles register/login and talks to MongoDB
 ```
+
+Two ways to add code in this repo, pick whichever fits your feature:
+- **Shared style** — add a page in `client/src/pages/`, a route file in `server/routes/`, a model in
+  `server/models/`, same as the existing auth code.
+- **Feature-folder style** — put everything your feature owns in its own
+  `server/features/<your-feature>/` and `client/src/features/<your-feature>/` folder (see
+  `thesis-supervisors` for a working example). Keeps your code easy to find, review, and even copy
+  into another project later. Recommended if your feature has more than 2-3 files.
+
+Either way, you'll still need to add a couple of lines to the shared files
+([client/src/App.jsx](client/src/App.jsx) for the route, [server/server.js](server/server.js) for
+the API mount) — see "Files likely to cause merge conflicts" below.
 
 ---
 
@@ -36,9 +57,9 @@ server/   Express API - handles register/login and talks to MongoDB
 6. Replace `<username>` and `<password>` with your database user's credentials, and add a database name at the end, e.g. `/tracker`.
 
 > Only one person needs to create the cluster. Whoever does should share the connection string with
-> I've shared the connection string. **never commit it to git or paste it
-> in an issue/PR**. Everyone points their own local `.env` at the same connection string, so
-> everyone reads/writes the same shared database.
+> the team privately (group chat, not GitHub) — **never commit it to git or paste it in an issue/PR**.
+> Everyone points their own local `.env` at the same connection string, so everyone reads/writes the
+> same shared database.
 
 ### 2. Configure the server
 
@@ -88,11 +109,27 @@ Open http://localhost:5173 in your browser. Create an account on the Sign Up pag
 logging in you'll land on the Dashboard page — that's the shared starting point where everyone adds
 their own features.
 
+### 5. One-time data load for the Thesis Supervisors feature
+
+The `/faculty` page reads from a `faculties` collection that isn't filled in automatically — someone
+needs to run the scrape script once:
+
+```
+cd server
+npm run scrape
+```
+
+This fetches BRAC CSE's thesis-supervisor directory (~190 faculty) and saves it to the shared
+MongoDB database, so **only one teammate needs to run this** — once it's done, everyone else already
+has the data since we're all pointed at the same database. It takes a few minutes (it's deliberately
+slow so we're not hammering BRACU's website) and is safe to re-run later if you want to refresh the
+data.
+
 ---
 
 ## Part 2 — How we work together (git workflow)
 
-We're 5 people committing to the same repo. To avoid overwriting each other's work:
+We're 4 people committing to the same repo. To avoid overwriting each other's work:
 
 1. **Never push directly to `main`.** `main` should always be a working version of the app.
 2. **One branch per feature**, branched off the latest `main`:
@@ -134,13 +171,14 @@ quick heads-up in the group chat saves a headache later.
 
 ### Where do I add my feature?
 
-- **New page:** add a component in `client/src/pages/`, then add a `<Route>` for it in
-  [client/src/App.jsx](client/src/App.jsx). Wrap it in `<ProtectedRoute>` if it should require login.
-- **New API endpoint:** add a route file in `server/routes/`, and register it in
-  [server/server.js](server/server.js) with `app.use("/api/yourthing", yourRoutes)`. Use the
-  `requireAuth` middleware ([server/middleware/auth.js](server/middleware/auth.js)) on any route that
-  needs to know who's logged in — it gives you `req.userId`.
-- **New database collection:** add a new Mongoose model in `server/models/`, following the pattern in
+- **New page:** add a component in `client/src/pages/` (or `client/src/features/<your-feature>/` —
+  see below), then add a `<Route>` for it in [client/src/App.jsx](client/src/App.jsx). Wrap it in
+  `<ProtectedRoute>` if it should require login.
+- **New API endpoint:** add a route file in `server/routes/` (or `server/features/<your-feature>/`),
+  and register it in [server/server.js](server/server.js) with `app.use("/api/yourthing", yourRoutes)`.
+  Use the `requireAuth` middleware ([server/middleware/auth.js](server/middleware/auth.js)) on any
+  route that needs to know who's logged in — it gives you `req.userId`.
+- **New database collection:** add a new Mongoose model, following the pattern in
   `server/models/User.js`.
 - **Need the current logged-in user in a component?**
   `const user = JSON.parse(localStorage.getItem("user"));`
@@ -149,6 +187,12 @@ quick heads-up in the group chat saves a headache later.
 - The Dashboard page ([client/src/pages/Dashboard.jsx](client/src/pages/Dashboard.jsx)) is
   intentionally just a placeholder — either build your feature into it, or create a new page/route
   that links off of it.
+- **Got more than 2-3 files for your feature?** Consider the feature-folder style instead of spreading
+  files across `pages/`/`routes/`/`models/`: put everything in
+  `server/features/<your-feature>/` and `client/src/features/<your-feature>/`, like
+  [server/features/thesis-supervisors](server/features/thesis-supervisors) and
+  [client/src/features/thesis-supervisors](client/src/features/thesis-supervisors) do. Makes your
+  code easy to review as one unit, and easy to lift out later if you ever want to reuse it elsewhere.
 
 ### Before opening a PR
 

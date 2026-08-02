@@ -67,6 +67,34 @@
   line-height: 1.6;
 }
 
+.feature-card {
+  margin-top: 25px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: left;
+}
+
+.feature-card h3 {
+  margin: 0 0 6px;
+  color: #6a11cb;
+}
+
+.feature-card p {
+  margin: 0 0 12px;
+}
+
+.feature-link {
+  display: inline-block;
+  color: #2575fc;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.feature-link:hover {
+  text-decoration: underline;
+}
+
 .placeholder-box {
   margin-top: 25px;
   border: 2px dashed #cbb8f5;
