@@ -3,6 +3,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Faculty from "./features/thesis-supervisors/Faculty";
 
 function App() {
   return (
@@ -19,6 +20,16 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* browse BRACU CSE thesis supervisors by research interest */}
+        <Route
+          path="/faculty"
+          element={
+            <ProtectedRoute>
+              <Faculty />
             </ProtectedRoute>
           }
         />
