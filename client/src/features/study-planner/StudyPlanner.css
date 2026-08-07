@@ -1,0 +1,63 @@
+.study-planner-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.study-planner-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 30px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.study-planner-form button {
+  grid-column: span 2;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.study-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+}
+
+.study-card.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+  background: #eef9ee;
+}
+
+.category-badge {
+  font-size: 12px;
+  background: #eee;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.study-card-actions button {
+  margin-left: 5px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+}

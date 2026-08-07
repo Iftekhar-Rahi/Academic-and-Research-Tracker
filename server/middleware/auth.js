@@ -1,22 +1,28 @@
 const jwt = require("jsonwebtoken");
 
-// checks that the request has a valid login token before letting it through
-function requireAuth(req, res, next) {
-  const authHeader = req.headers.authorization; // expected format: "Bearer <token>"
+module.exports = function (req, res, next) {
+  // 1. Get token from either header format
+  let token = req.header("x-auth-token") || req.header("Authorization");
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "No token, access denied" });
+  if (!token) {
+    return res.status(401).json({ message: "No token, authorization denied" });
   }
 
-  const token = authHeader.split(" ")[1];
+  // 2. Clean 'Bearer ' prefix if present
+  if (typeof token === "string" && token.startsWith("Bearer ")) {
+    token = token.slice(7).trim();
+  }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.userId;
+    // 3. Verify token with secret key
+    const secret = process.env.JWT_SECRET || "yourJWTSecret";
+    const decoded = jwt.verify(token, secret);
+
+    // 4. Attach decoded token directly to req.user
+    req.user = decoded;
     next();
   } catch (err) {
-    return res.status(401).json({ message: "Invalid or expired token" });
+    console.error("Auth Middleware Error:", err.message);
+    res.status(401).json({ message: "Token is not valid or has expired" });
   }
-}
-
-module.exports = requireAuth;
+};
