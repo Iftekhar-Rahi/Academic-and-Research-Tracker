@@ -39,6 +39,13 @@ function Dashboard() {
           <Link to="/faculty" className="feature-link">Browse Supervisors →</Link>
         </div>
 
+        {/* Thesis Group Finder feature - code lives in server/features/thesis-groups and client/src/features/thesis-groups */}
+        <div className="feature-card">
+          <h3>Thesis Group Finder</h3>
+          <p>Find groupmates for your thesis, or a group looking for someone with your skills.</p>
+          <Link to="/thesis-groups" className="feature-link">Browse Board →</Link>
+        </div>
+
         {/* My beloved teammembers please add your own feature below this */}
         <div className="placeholder-box">
           Add your feature here!

@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       // forward API calls to the Express server so we don't hit CORS issues in dev
-      "/api": "http://localhost:5000",
+      // (5001, not 5000 - macOS's AirPlay Receiver squats on 5000, see server/.env's PORT)
+      "/api": "http://localhost:5001",
     },
   },
 })

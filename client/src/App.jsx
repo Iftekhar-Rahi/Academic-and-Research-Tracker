@@ -4,6 +4,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Faculty from "./features/thesis-supervisors/Faculty";
+import Browse from "./features/thesis-groups/Browse";
+import CreatePost from "./features/thesis-groups/CreatePost";
+import MyPosts from "./features/thesis-groups/MyPosts";
 
 function App() {
   return (
@@ -30,6 +33,32 @@ function App() {
           element={
             <ProtectedRoute>
               <Faculty />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* thesis group finder board - find groupmates or a group to join */}
+        <Route
+          path="/thesis-groups"
+          element={
+            <ProtectedRoute>
+              <Browse />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/thesis-groups/new"
+          element={
+            <ProtectedRoute>
+              <CreatePost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/thesis-groups/mine"
+          element={
+            <ProtectedRoute>
+              <MyPosts />
             </ProtectedRoute>
           }
         />
