@@ -44,6 +44,8 @@ function Dashboard() {
           <h3>Thesis Group Finder</h3>
           <p>Find groupmates for your thesis, or a group looking for someone with your skills.</p>
           <Link to="/thesis-groups" className="feature-link">Browse Board →</Link>
+        </div>
+
         {/* Course Resources feature - code lives in server/features/course-resources and client/src/features/course-resources */}
         <div className="feature-card">
           <h3>Course Resources</h3>

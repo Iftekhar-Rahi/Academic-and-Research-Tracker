@@ -60,6 +60,10 @@ function App() {
           element={
             <ProtectedRoute>
               <MyPosts />
+            </ProtectedRoute>
+          }
+        />
+
         {/* course resources board - links to lecture slides, notes, question banks, etc. */}
         <Route
           path="/course-resources"
