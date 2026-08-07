@@ -39,6 +39,13 @@ function Dashboard() {
           <Link to="/faculty" className="feature-link">Browse Supervisors →</Link>
         </div>
 
+        {/* Course Resources feature - code lives in server/features/course-resources and client/src/features/course-resources */}
+        <div className="feature-card">
+          <h3>Course Resources</h3>
+          <p>Browse and share links to lecture slides, notes, question banks, videos and more.</p>
+          <Link to="/course-resources" className="feature-link">Browse Resources →</Link>
+        </div>
+
         {/* My beloved teammembers please add your own feature below this */}
         <div className="placeholder-box">
           Add your feature here!

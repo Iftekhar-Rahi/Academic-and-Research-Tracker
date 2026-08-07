@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       // forward API calls to the Express server so we don't hit CORS issues in dev
-      "/api": "http://localhost:5000",
+      "/api": "http://localhost:5001",
     },
   },
 })

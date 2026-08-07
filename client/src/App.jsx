@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Faculty from "./features/thesis-supervisors/Faculty";
+import CourseResources from "./features/course-resources/CourseResources";
 
 function App() {
   return (
@@ -30,6 +31,16 @@ function App() {
           element={
             <ProtectedRoute>
               <Faculty />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* course resources board - links to lecture slides, notes, question banks, etc. */}
+        <Route
+          path="/course-resources"
+          element={
+            <ProtectedRoute>
+              <CourseResources />
             </ProtectedRoute>
           }
         />
