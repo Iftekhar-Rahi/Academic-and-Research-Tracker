@@ -5,6 +5,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const facultyRoutes = require("./features/thesis-supervisors/routes");
+const courseResourceRoutes = require("./features/course-resources/routes");
 const requireAuth = require("./middleware/auth");
 
 const app = express();
@@ -20,6 +21,9 @@ app.use("/api/auth", authRoutes);
 
 // thesis supervisor directory, scraped ahead of time by npm run scrape (see features/thesis-supervisors/scrape.js)
 app.use("/api/faculty", requireAuth, facultyRoutes);
+
+// course resources board - students sharing links to slides, notes, question banks, etc.
+app.use("/api/course-resources", requireAuth, courseResourceRoutes);
 
 // just to check the server is working if you open it in the browser
 app.get("/", (req, res) => {
