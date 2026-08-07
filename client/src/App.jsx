@@ -7,6 +7,7 @@ import Faculty from "./features/thesis-supervisors/Faculty";
 import Browse from "./features/thesis-groups/Browse";
 import CreatePost from "./features/thesis-groups/CreatePost";
 import MyPosts from "./features/thesis-groups/MyPosts";
+import CourseResources from "./features/course-resources/CourseResources";
 
 function App() {
   return (
@@ -59,6 +60,12 @@ function App() {
           element={
             <ProtectedRoute>
               <MyPosts />
+        {/* course resources board - links to lecture slides, notes, question banks, etc. */}
+        <Route
+          path="/course-resources"
+          element={
+            <ProtectedRoute>
+              <CourseResources />
             </ProtectedRoute>
           }
         />

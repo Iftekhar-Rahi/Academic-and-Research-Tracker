@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const facultyRoutes = require("./features/thesis-supervisors/routes");
 const thesisGroupRoutes = require("./features/thesis-groups/routes");
+const courseResourceRoutes = require("./features/course-resources/routes");
 const requireAuth = require("./middleware/auth");
 
 const app = express();
@@ -24,6 +25,8 @@ app.use("/api/faculty", requireAuth, facultyRoutes);
 
 // thesis group finder board - students posting to find groupmates or a group to join
 app.use("/api/thesis-groups", requireAuth, thesisGroupRoutes);
+// course resources board - students sharing links to slides, notes, question banks, etc.
+app.use("/api/course-resources", requireAuth, courseResourceRoutes);
 
 // just to check the server is working if you open it in the browser
 app.get("/", (req, res) => {

@@ -2,8 +2,36 @@ const express = require("express");
 const Faculty = require("./Faculty");
 const escapeRegExp = require("./escapeRegExp");
 const { ALL_TAGS } = require("./tagging");
+const scrapeJob = require("./scrapeJob");
 
 const router = express.Router();
+
+// runs when the "Update data" button on the page is pressed (POST /api/faculty/scrape).
+// scraping takes a couple of minutes, so we start it in the background and reply right away with
+// 202 ("accepted, still working on it") - the page then follows along via /scrape/status below
+router.post("/scrape", (req, res) => {
+  const result = scrapeJob.start();
+
+  if (result === "running") {
+    return res.status(409).json({ message: "An update is already running", status: scrapeJob.getStatus() });
+  }
+
+  if (result === "cooldown") {
+    const seconds = Math.round(scrapeJob.COOLDOWN_MS / 1000);
+    return res.status(429).json({
+      message: `The data was just updated. Please wait about ${seconds} seconds before updating again.`,
+      status: scrapeJob.getStatus(),
+    });
+  }
+
+  res.status(202).json({ message: "Update started", status: scrapeJob.getStatus() });
+});
+
+// runs every couple of seconds while an update is going, so the page can show the progress
+// (GET /api/faculty/scrape/status)
+router.get("/scrape/status", (req, res) => {
+  res.json({ status: scrapeJob.getStatus() });
+});
 
 // runs when the page wants the list of research tags and how many faculty have each
 // (GET /api/faculty/tags) - kept above the /:facId route so express doesn't mistake "tags" for an id
