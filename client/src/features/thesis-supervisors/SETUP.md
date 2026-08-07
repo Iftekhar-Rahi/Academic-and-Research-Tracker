@@ -5,7 +5,9 @@ thesis-supervisor directory (see the matching backend feature folder).
 
 ## Files
 - `Faculty.jsx` — the page component (search box, tag filter chips,
-  faculty card grid).
+  faculty card grid, and the "Update data" button that re-scrapes BRACU's
+  site — it starts the scrape, then polls for progress every 2 seconds and
+  reloads the list when it finishes).
 - `Faculty.css` — its styles.
 - `api.js` — `authFetch(path, options)` helper that attaches
   `Authorization: Bearer <token>` from `localStorage.getItem("token")`.
@@ -24,8 +26,12 @@ thesis-supervisor directory (see the matching backend feature folder).
    <Route path="/faculty" element={<YourProtectedRoute><Faculty /></YourProtectedRoute>} />
    ```
    (Or render it unprotected if the backend route isn't auth-gated.)
-3. Make sure your backend serves `/api/faculty`, `/api/faculty/tags`, and
-   `/api/faculty/:facId` (see the backend feature's `SETUP.md`), and that
-   requests from your dev server reach it — either via a dev proxy (e.g.
-   Vite's `server.proxy: { "/api": "http://localhost:5000" }`) or by
+3. Make sure your backend serves `/api/faculty`, `/api/faculty/tags`,
+   `/api/faculty/:facId`, `POST /api/faculty/scrape` and
+   `GET /api/faculty/scrape/status` (see the backend feature's `SETUP.md`),
+   and that requests from your dev server reach it — either via a dev proxy
+   (e.g. Vite's `server.proxy: { "/api": "http://localhost:5000" }`) or by
    changing the fetch paths in `Faculty.jsx` to a full URL.
+4. If you don't want the scrape button, delete `startScrape`, the polling
+   `useEffect`, and the `.scrape-*` markup from `Faculty.jsx` — the rest of
+   the page works without them.
