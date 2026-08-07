@@ -32,29 +32,34 @@ function Dashboard() {
           is the shared starting point for the project.
         </p>
 
-        {/* Thesis Supervisors feature - code lives in server/features/thesis-supervisors and client/src/features/thesis-supervisors */}
+        {/* Thesis Supervisors feature */}
         <div className="feature-card">
           <h3>Thesis Supervisor Finder</h3>
           <p>Browse BRAC University CSE faculty who supervise thesis or Open research projects.</p>
           <Link to="/faculty" className="feature-link">Browse Supervisors →</Link>
         </div>
 
-        {/* Thesis Group Finder feature - code lives in server/features/thesis-groups and client/src/features/thesis-groups */}
+        {/* Thesis Group Finder feature */}
         <div className="feature-card">
           <h3>Thesis Group Finder</h3>
           <p>Find groupmates for your thesis, or a group looking for someone with your skills.</p>
           <Link to="/thesis-groups" className="feature-link">Browse Board →</Link>
-        {/* Course Resources feature - code lives in server/features/course-resources and client/src/features/course-resources */}
+        </div>
+
+        {/* Course Resources feature */}
         <div className="feature-card">
           <h3>Course Resources</h3>
           <p>Browse and share links to lecture slides, notes, question banks, videos and more.</p>
           <Link to="/course-resources" className="feature-link">Browse Resources →</Link>
         </div>
 
-        {/* My beloved teammembers please add your own feature below this */}
-        <div className="placeholder-box">
-          Add your feature here!
+        {/* 🌟 NEW FEATURE: Study Planner */}
+        <div className="feature-card">
+          <h3>Study Planner</h3>
+          <p>Organize daily study time, prep for exams, and manage assignments.</p>
+          <Link to="/study-planner" className="feature-link">Open Planner →</Link>
         </div>
+
       </div>
     </div>
   );

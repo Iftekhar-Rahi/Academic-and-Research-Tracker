@@ -1,3 +1,4 @@
+import StudyPlanner from "./features/study-planner/StudyPlanner";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
@@ -13,6 +14,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+  path="/study-planner"
+  element={
+    <ProtectedRoute>
+      <StudyPlanner />
+    </ProtectedRoute>
+  }
+/>
         {/* go to login page first when opening the site */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
@@ -27,7 +36,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+      
         {/* browse BRACU CSE thesis supervisors by research interest */}
         <Route
           path="/faculty"
@@ -60,6 +69,10 @@ function App() {
           element={
             <ProtectedRoute>
               <MyPosts />
+            </ProtectedRoute>
+          }
+        />
+
         {/* course resources board - links to lecture slides, notes, question banks, etc. */}
         <Route
           path="/course-resources"

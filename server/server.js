@@ -27,6 +27,7 @@ app.use("/api/faculty", requireAuth, facultyRoutes);
 app.use("/api/thesis-groups", requireAuth, thesisGroupRoutes);
 // course resources board - students sharing links to slides, notes, question banks, etc.
 app.use("/api/course-resources", requireAuth, courseResourceRoutes);
+app.use("/api/study-planner", require("./features/study-planner/routes"));
 
 // just to check the server is working if you open it in the browser
 app.get("/", (req, res) => {
