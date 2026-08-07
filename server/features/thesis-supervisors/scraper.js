@@ -150,11 +150,16 @@ async function fetchAndParseProfile(profileUrl) {
 }
 
 // the main scrape job: reads the list page, then visits every faculty member's profile page one
-// by one and saves everything to the database. this is the only function scrape.js calls
-async function scrapeAll() {
+// by one and saves everything to the database.
+//
+// onProgress (optional) is called after every faculty member with { done, total, name }, so the
+// "Update data" button on the website can show how far along we are. the command line version
+// (scrape.js) doesn't pass one and just reads the console output instead
+async function scrapeAll({ onProgress } = {}) {
   const listHtml = await fetchHtml(LIST_URL);
   const entries = parseListPage(listHtml);
   console.log(`Found ${entries.length} faculty cards`);
+  onProgress?.({ done: 0, total: entries.length, name: "" });
 
   let upserted = 0;
   let skippedAlumni = 0;
@@ -167,6 +172,7 @@ async function scrapeAll() {
     if (entry.isAlumni) {
       console.log(`[${i + 1}/${entries.length}] Skipping alumni: ${entry.name}`);
       skippedAlumni++;
+      onProgress?.({ done: i + 1, total: entries.length, name: entry.name });
       continue;
     }
 
@@ -195,6 +201,7 @@ async function scrapeAll() {
 
     upserted++;
     console.log(`[${i + 1}/${entries.length}] Upserted facId=${entry.facId} ${entry.name} — tags: ${tags.join(", ") || "none"}`);
+    onProgress?.({ done: i + 1, total: entries.length, name: entry.name });
   }
 
   return { total: entries.length, upserted, skippedAlumni, errors };

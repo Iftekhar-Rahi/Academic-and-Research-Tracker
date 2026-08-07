@@ -20,6 +20,77 @@
   color: #6a11cb;
 }
 
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* the "Update data" button - kicks off a fresh scrape of BRACU's website */
+.scrape-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.scrape-button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.scrape-button:disabled {
+  background: #bbb;
+  cursor: not-allowed;
+}
+
+.scrape-box {
+  background: white;
+  border-left: 4px solid #6a11cb;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.06);
+}
+
+.scrape-box.done {
+  border-left-color: #2ecc71;
+}
+
+.scrape-box.failed {
+  border-left-color: #e74c3c;
+}
+
+.scrape-text {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.scrape-hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: gray;
+}
+
+.scrape-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: #eee;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.scrape-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  transition: width 0.3s ease;
+}
+
 .back-link {
   color: #2575fc;
   text-decoration: none;
